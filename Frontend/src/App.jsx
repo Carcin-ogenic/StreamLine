@@ -1,27 +1,49 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import { Outlet, Navigate } from "react-router-dom";
 import axios from "axios";
 
-function App() {
-  const [status, setStatus] = useState("loading…");
+export default function App() {
+  const [checking, setChecking] = useState(true);
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
+    const token = localStorage.getItem("xeno_token");
+    if (!token) {
+      setChecking(false);
+      return;
+    }
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
     axios
-      .get(import.meta.env.VITE_API_URL + "/health")
-      .then((res) => setStatus(res.data.status))
-      .catch(() => setStatus("error"));
+      .get(import.meta.env.VITE_API_URL + "/api/profile")
+      .then((res) => {
+        setUser(res.data);
+        setChecking(false);
+      })
+      .catch(() => {
+        setUser(null);
+        setChecking(false);
+      });
   }, []);
+
+  if (checking) {
+    return <p className="text-center mt-10">Checking authentication…</p>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
-    <>
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="max-w-md w-full p-8 bg-white rounded-2xl shadow-lg">
-          <h1 className="text-3xl font-bold text-center text-primary mb-4">Xeno CRM</h1>
-          <p className="text-center text-gray-700">
-            Backend status: <code className="bg-gray-200 p-1 rounded">{status}</code>
-          </p>
-        </div>
-      </div>
-    </>
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow p-4">
+        <h1 className="text-xl font-bold">Welcome, {user.name}</h1>
+      </header>
+      <main className="p-6">
+        <Outlet />
+      </main>
+    </div>
   );
 }
-
-export default App;
