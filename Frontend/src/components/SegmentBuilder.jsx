@@ -68,7 +68,15 @@ export default function SegmentBuilder() {
         </Form>
 
         <QueryBuilderAntD>
-          <QueryBuilder fields={fields} operators={operatorsByType} query={query} onQueryChange={setQuery} />
+          <QueryBuilder
+            fields={fields}
+            getOperators={(field) => {
+              const fieldData = fields.find((f) => f.name === field);
+              return fieldData ? operatorsByType[fieldData.type] || [] : [];
+            }}
+            query={query}
+            onQueryChange={setQuery}
+          />
         </QueryBuilderAntD>
 
         <Space style={{ marginTop: 16 }}>
