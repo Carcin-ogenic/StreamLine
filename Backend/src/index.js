@@ -14,6 +14,8 @@ import userRoutes from "../routes/user.js";
 import segmentRoutes from "../routes/segments.js";
 import campaignRoutes from "../routes/campaign.js";
 import dashboardRoutes from "../routes/dashboard.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "../swagger.js";
 
 const app = express();
 app.use(
@@ -34,7 +36,7 @@ app.use("/api/campaigns", campaignRoutes);
 app.use("/api/segments", segmentRoutes);
 app.use("/api/customers", requireAuth, customerRoutes);
 app.use("/api/orders", requireAuth, orderRoutes);
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api", requireAuth, dashboardRoutes);
 mongoose
   .connect(process.env.MONGODB_URI)
