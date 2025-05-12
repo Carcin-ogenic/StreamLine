@@ -1,7 +1,7 @@
 # 🧠 Xeno CRM – Campaign & Segmentation Engine
 
-Swagger Link : https://xeno-backend-kri8.onrender.com/api-docs/
 Xeno CRM is a full-stack customer engagement platform that allows businesses to segment their customers intelligently, launch personalized marketing campaigns, and preview the impact of those campaigns in real-time. It also leverages AI tools to assist users in creating message content and parsing natural-language queries into structured filters.
+Swagger Link : https://xeno-backend-kri8.onrender.com/api-docs/
 
 ---
 
