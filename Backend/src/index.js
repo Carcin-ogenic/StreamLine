@@ -12,6 +12,8 @@ import passport from "./passport.js";
 import { requireAuth } from "../middleware/auth.js";
 import userRoutes from "../routes/user.js";
 import segmentRoutes from "../routes/segments.js";
+import campaignRoutes from "../routes/campaign.js";
+import dashboardRoutes from "../routes/dashboard.js";
 
 const app = express();
 app.use(
@@ -19,6 +21,7 @@ app.use(
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 app.use(express.json());
@@ -27,10 +30,12 @@ app.use(passport.initialize());
 
 app.use("/auth", authRoutes);
 app.use("/api", requireAuth, userRoutes);
+app.use("/api/campaigns", campaignRoutes);
 app.use("/api/segments", segmentRoutes);
 app.use("/api/customers", requireAuth, customerRoutes);
 app.use("/api/orders", requireAuth, orderRoutes);
 
+app.use("/api", requireAuth, dashboardRoutes);
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
