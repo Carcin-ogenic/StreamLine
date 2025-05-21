@@ -29,7 +29,8 @@ export default function Login() {
           h-1/2 md:h-full
         "
       >
-        <h1 className="text-6xl md:text-8xl font-bold mb-4">Xeno CRM</h1>
+        <h1 className="text-6xl md:text-8xl font-bold mb-4">StreamLine</h1>
+
         <p className="text-lg md:text-2xl">Smart campaigns. Smarter insights.</p>
       </div>
 

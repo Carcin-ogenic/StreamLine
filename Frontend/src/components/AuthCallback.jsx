@@ -1,4 +1,3 @@
-// src/components/AuthCallback.jsx
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -9,19 +8,15 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const params = new URLSearchParams(search);
-    const token = params.get("token"); // ← get the JWT we embedded in the URL
+    const token = params.get("token");
     if (!token) {
-      // No token? Something went wrong, go back to login
       return navigate("/login", { replace: true });
     }
 
-    // 1) Persist it
     localStorage.setItem("xeno_token", token);
 
-    // 2) Configure Axios for future API calls
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    // 3) Move into the protected area of your app
     navigate("/", { replace: true });
   }, [search, navigate]);
 

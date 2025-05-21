@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Card, message } from "antd";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function CampaignList() {
   const [campaigns, setCampaigns] = useState([]);
+  const { state } = useLocation();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  useEffect(() => {
+    if (state?.toast) {
+      messageApi.open({
+        type: state.toast.type,
+        content: state.toast.content,
+      });
+      window.history.replaceState({}, document.title);
+    }
+  }, [state, messageApi]);
 
   useEffect(() => {
     axios
@@ -38,16 +50,19 @@ export default function CampaignList() {
   ];
 
   return (
-    <Card
-      title="Campaign History"
-      extra={
-        <Link to="/campaigns/new">
-          <Button type="primary">+ New Campaign</Button>
-        </Link>
-      }
-      style={{ margin: "2rem" }}
-    >
-      <Table dataSource={campaigns} columns={columns} rowKey="_id" />
-    </Card>
+    <>
+      {contextHolder}
+      <Card
+        title="Campaign History"
+        extra={
+          <Link to="/campaigns/new">
+            <Button type="primary">+ New Campaign</Button>
+          </Link>
+        }
+        style={{ margin: "2rem" }}
+      >
+        <Table dataSource={campaigns} columns={columns} rowKey="_id" />
+      </Card>
+    </>
   );
 }
