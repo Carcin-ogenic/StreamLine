@@ -1,6 +1,6 @@
-# 🧠 Xeno CRM – Campaign & Segmentation Engine
+# 🧠 StreamLine CRM – Campaign & Segmentation Engine
 
-Xeno CRM is a full-stack customer engagement platform that allows businesses to segment their customers intelligently, launch personalized marketing campaigns, and preview the impact of those campaigns in real-time. It also leverages AI tools to assist users in creating message content and parsing natural-language queries into structured filters.
+StreamLine CRM is a full-stack customer engagement platform that allows businesses to segment their customers intelligently, launch personalized marketing campaigns, and preview the impact of those campaigns in real-time. It also leverages AI tools to assist users in creating message content and parsing natural-language queries into structured filters.
 Swagger Link : https://xeno-backend-kri8.onrender.com/api-docs/
 
 ---
@@ -21,7 +21,7 @@ Swagger Link : https://xeno-backend-kri8.onrender.com/api-docs/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/xeno-crm.git
+git clone https://github.com/<your-username>/streamline.git
 cd xeno-crm
 ```
 
